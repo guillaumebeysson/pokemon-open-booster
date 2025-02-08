@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f4f4f4;
-    background-image: url('images/bg2.png');
+    background-image: url('images/bg3.webp');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -202,7 +202,7 @@ button:hover {
 }
 
 .swiper-slide img {
-    max-width: 250px;
+    max-width: 400px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
 }
@@ -212,6 +212,18 @@ button:hover {
 }
 
 /* Adaptation mobile */
+@media (max-width: 1210px) {
+    .swiper-slide img {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 900px) {
+    .swiper-slide img {
+        max-width: 250px;
+    }
+}
+
 @media (max-width: 845px) {
     #card-container {
         display: flex;
@@ -221,9 +233,7 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-    .swiper-slide img {
-        max-width: 150px;
-    }
+
 
     #fullscreen-card {
         border-radius: 20px;
@@ -231,5 +241,11 @@ button:hover {
 
     h1 img {
         width: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    .swiper-slide img {
+        max-width: 150px;
     }
 }
