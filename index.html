@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ouverture de Booster Pokémon</title>
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1><img src="images/pokemon-logo.png" alt="pokemon-logo"></h1>
+
+        <!-- Image du booster fermé -->
+        <div class="booster-carousel-container">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img class="booster" src="/boosters/1.png" alt="Booster Pokémon"></div>
+                    <div class="swiper-slide"><img class="booster" src="/boosters/2.png" alt="Booster Pokémon"></div>
+                    <div class="swiper-slide"><img class="booster" src="/boosters/3.png" alt="Booster Pokémon"></div>
+                    <div class="swiper-slide"><img class="booster" src="/boosters/4.png" alt="Booster Pokémon"></div>
+                    <div class="swiper-slide"><img class="booster" src="/boosters/5.png" alt="Booster Pokémon"></div>
+                    <div class="swiper-slide"><img class="booster" src="/boosters/6.png" alt="Booster Pokémon"></div>
+                    <div class="swiper-slide"><img class="booster" src="/boosters/7.png" alt="Booster Pokémon"></div>
+                </div>
+
+                <!-- Pagination et navigation -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+
+
+        <!-- Zone d'affichage des cartes -->
+        <div id="card-container" class="hidden"></div>
+
+        <div id="fullscreen-container" class="hidden">
+            <span id="close-fullscreen">❌</span>
+            <img id="fullscreen-card" src="" alt="Carte Pokémon en grand">
+        </div>
+
+        <button id="open-another" class="hidden">Ouvrir un autre booster</button>
+
+    </div>
+    <script src="script.js"></script>
+    <!-- Swiper.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</body>
+
+</html>
