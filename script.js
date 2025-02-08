@@ -9,23 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialiser Swiper.js
     const swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3, // Afficher 3 boosters en même temps
-        spaceBetween: 10,
-        centeredSlides: true,
-        loop: true,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 5, // Afficher 5 boosters sur desktop
-            }
-        }
+        effect: "cards",
+        grabCursor: true,
     });
 
     async function fetchPokemonCards() {
