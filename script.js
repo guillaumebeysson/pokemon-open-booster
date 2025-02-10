@@ -9,9 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialiser Swiper.js
     const swiper = new Swiper(".mySwiper", {
-        effect: "cards",
+        effect: "cards", // Active l'effet "cards"
         grabCursor: true,
+        cardsEffect: {
+            slideShadows: false, // Désactive les ombres sur les slides
+        }
     });
+
 
     async function fetchPokemonCards() {
         try {
@@ -109,3 +113,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
