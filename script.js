@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const fullscreenContainer = document.getElementById("fullscreen-container");
     const fullscreenCard = document.getElementById("fullscreen-card");
     const closeFullscreen = document.getElementById("close-fullscreen");
+    const h1 = document.querySelector("h1");
+    const loader = document.getElementById("loader");
 
     // Initialiser Swiper.js
     const swiper = new Swiper(".mySwiper", {
@@ -21,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const cardData = await response.json();
 
             // Liste des raretés spéciales
-            const specialRarities = ["LÉGENDE", "Holo Rare V", "Holo Rare VSTAR", "Illustration rare", "Illustration spéciale rare", "Double rare", "Ultra Rare", "Holo Rare VMAX", "Magnifique rare", "Secret Rare", "Full Art"];
+            const specialRarities = ["LÉGENDE", "Shiny rare VMAX", "Shiny rare V", "Holo Rare V", "Holo Rare VSTAR", "Illustration rare", "Illustration spéciale rare", "Double rare", "Ultra Rare", "Holo Rare VMAX", "Magnifique rare", "Secret Rare", "Full Art"];
 
             // Vérifie si la carte est spéciale en fonction de la rareté
             const isSpecial = specialRarities.includes(cardData.rarity);
@@ -46,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (data.length === 0) {
                 console.error("Aucune carte trouvée !");
+                loader.classList.remove("show");
                 return;
             }
 
@@ -67,10 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 attempts++;
             }
-
+            h1.classList.remove("hidden");
+            loader.classList.remove("show");
             displayCards(selectedCards);
         } catch (error) {
             console.error("Erreur lors de la récupération des cartes :", error);
+            loader.classList.remove("show");
         }
     }
 
@@ -130,6 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".swiper-slide img.booster").forEach(booster => {
         booster.addEventListener("click", () => {
             document.querySelector(".booster-carousel-container").classList.add("hidden"); // Cacher le carousel
+            loader.classList.add("show");
+            h1.classList.add("hidden");
             fetchPokemonCards(); // Charger les cartes Pokémon
         });
     });

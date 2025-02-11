@@ -82,33 +82,25 @@ h1 img {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Face de la carte (visible après retournement) */
 .card-front {
     transform: rotateY(180deg);
-    display: block;
 }
 
-/* Dos de la carte (visible au départ) */
 .card-back {
-    background-image: url('images/back-card-pokemon.png');
-    background-size: cover;
-    display: block;
+    transform: rotateY(0deg);
 }
 
-/* Effet de retournement */
 .card.flipped {
     transform: rotateY(180deg);
 }
 
-/* Lorsque la carte est retournée, la face avant devient visible */
 .card.flipped .card-front {
-    display: block;
+    transform: rotateY(180deg);
 }
 
 .card.flipped .card-back {
-    display: none;
+    transform: rotateY(360deg);
 }
-
 
 /* Bouton d'affichage des nouvelles cartes */
 button {
@@ -219,8 +211,8 @@ button:hover {
     }
 
     100% {
-        transform: rotateY(1440deg) translateY(0) scale(1);
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        transform: rotateY(1640deg) translateY(0) scale(1);
+        box-shadow: 0px 0px 30px rgba(255, 215, 0, 1);
     }
 }
 
@@ -229,6 +221,89 @@ button:hover {
     animation: special-card-animation 1.5s ease-out forwards;
 }
 
+/* Ball */
+#loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    z-index: 1000;
+    display: none;
+}
+
+/* Quand le loader doit être visible */
+#loader.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ball {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: white;
+    position: relative;
+    box-shadow: -20px 0 rgba(0, 0, 0, 0.1) inset;
+    animation: roll 1s ease-in-out infinite;
+    background: linear-gradient(to bottom,
+            #e83e35 0%,
+            #e83e35 50.5%,
+            #ffffff 50.51%,
+            #ffffff 100%);
+}
+
+.ball:after {
+    content: "";
+    position: absolute;
+    top: calc(100px - 3px);
+    left: 0;
+    width: 200px;
+    height: 6px;
+    background: #3f3f3f;
+}
+
+.ball:before {
+    content: "";
+    position: absolute;
+    top: 67px;
+    left: 67px;
+    width: 54px;
+    height: 54px;
+    border: solid 6px #3f3f3f;
+    border-radius: 50%;
+    background: white;
+    z-index: 1;
+    box-shadow: 0 0 15px -2px #c62828 inset;
+    animation: button 3s ease infinite;
+}
+
+@keyframes roll {
+    from {
+        transform: rotate(0);
+    }
+
+    90%,
+    to {
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes button {
+
+    from,
+    50%,
+    to {
+        box-shadow: 0 0 15px -2px #c62828 inset;
+    }
+
+    25%,
+    75% {
+        box-shadow: 0 0 10px -2px #1300ea inset;
+    }
+}
 
 /* Adaptation mobile */
 @media (max-width: 1210px) {
