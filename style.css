@@ -42,15 +42,12 @@ h1 img {
 #card-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    /* 5 colonnes */
     grid-template-rows: repeat(2, auto);
-    /* 2 lignes */
     gap: 15px;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
     max-width: 800px;
-    /* Ajuste la largeur max */
 }
 
 /* Conteneur de la carte */
@@ -89,7 +86,6 @@ h1 img {
 .card-front {
     transform: rotateY(180deg);
     display: block;
-    /* Assurer qu'elle soit bien placée */
 }
 
 /* Dos de la carte (visible au départ) */
@@ -204,6 +200,35 @@ button:hover {
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
 }
+
+/* Effet spécial pour les cartes EX, VMAX, etc. */
+@keyframes special-card-animation {
+    0% {
+        transform: rotateY(0deg) scale(1);
+        box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
+    }
+
+    30% {
+        transform: rotateY(720deg) scale(1.5);
+        box-shadow: 0px 0px 30px rgba(255, 215, 0, 1);
+    }
+
+    70% {
+        transform: rotateY(1080deg) translateY(-50px) scale(1.2);
+        box-shadow: 0px 20px 50px rgba(255, 215, 0, 0.7);
+    }
+
+    100% {
+        transform: rotateY(1440deg) translateY(0) scale(1);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* Ajout d'une classe temporaire pour déclencher l'animation */
+.special-card-animated {
+    animation: special-card-animation 1.5s ease-out forwards;
+}
+
 
 /* Adaptation mobile */
 @media (max-width: 1210px) {

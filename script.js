@@ -1,21 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
     const cardContainer = document.getElementById("card-container");
     const openAnotherButton = document.getElementById("open-another");
-
-    // Élément pour l'affichage en plein écran
     const fullscreenContainer = document.getElementById("fullscreen-container");
     const fullscreenCard = document.getElementById("fullscreen-card");
     const closeFullscreen = document.getElementById("close-fullscreen");
 
     // Initialiser Swiper.js
     const swiper = new Swiper(".mySwiper", {
-        effect: "cards", // Active l'effet "cards"
+        effect: "cards",
         grabCursor: true,
         cardsEffect: {
             slideShadows: false, // Désactive les ombres sur les slides
         }
     });
 
+    // Fonction pour vérifier si une carte est spéciale
+    async function fetchCardDetails(cardId) {
+        try {
+            const response = await fetch(`https://api.tcgdex.net/v2/fr/cards/${cardId}`);
+            const cardData = await response.json();
+
+            // Liste des raretés spéciales
+            const specialRarities = ["LÉGENDE", "Holo Rare V", "Holo Rare VSTAR", "Illustration rare", "Illustration spéciale rare", "Double rare", "Ultra Rare", "Holo Rare VMAX", "Magnifique rare", "Secret Rare", "Full Art"];
+
+            // Vérifie si la carte est spéciale en fonction de la rareté
+            const isSpecial = specialRarities.includes(cardData.rarity);
+
+            if (isSpecial) {
+                console.log(`🔥 La carte ${cardData.name} (${cardData.rarity}) est spéciale !`);
+                return true;
+            } else {
+                console.log(`✔️ La carte ${cardData.name} (${cardData.rarity}) est normale.`);
+                return false;
+            }
+        } catch (error) {
+            console.error("Erreur lors de la récupération des détails de la carte :", error);
+            return false;
+        }
+    }
 
     async function fetchPokemonCards() {
         try {
@@ -35,7 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 const randomCard = data[randomIndex];
 
                 if (randomCard?.image) {
-                    selectedCards.push(`${randomCard.image}/high.png`);
+                    // Récupérer les détails de la carte pour vérifier la rareté
+                    const isSpecial = await fetchCardDetails(randomCard.id);
+
+                    selectedCards.push({
+                        imageUrl: `${randomCard.image}/high.png`,
+                        isSpecial: isSpecial,
+                    });
                 }
                 attempts++;
             }
@@ -46,23 +74,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+
     function displayCards(cards) {
         cardContainer.innerHTML = "";
         cardContainer.classList.remove("hidden");
 
-        cards.forEach((cardUrl, index) => {
+        cards.forEach((card) => {
             const cardWrapper = document.createElement("div");
             cardWrapper.classList.add("card-wrapper");
 
             const cardElement = document.createElement("div");
             cardElement.classList.add("card");
 
+            // Ajouter un effet spécial si la carte est rare
+            if (card.isSpecial) {
+                cardElement.classList.add("special-card");
+            }
+
             const cardBack = document.createElement("img");
             cardBack.src = "images/back-card-pokemon.png";
             cardBack.classList.add("card-back");
 
             const cardFront = document.createElement("img");
-            cardFront.src = cardUrl;
+            cardFront.src = card.imageUrl;
             cardFront.classList.add("card-front");
 
             let isFlipped = false;
@@ -70,9 +104,15 @@ document.addEventListener("DOMContentLoaded", () => {
             cardElement.addEventListener("click", () => {
                 if (!isFlipped) {
                     cardElement.classList.add("flipped");
+
+                    // Appliquer l'effet seulement si c'est une carte spéciale
+                    if (card.isSpecial) {
+                        applySpecialCardEffect(cardElement);
+                    }
+
                     isFlipped = true;
                 } else {
-                    fullscreenCard.src = cardUrl;
+                    fullscreenCard.src = card.imageUrl;
                     fullscreenContainer.classList.add("show");
                 }
             });
@@ -113,4 +153,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// EFFET ANIMATIONS CARTES SPECIALES
+function applySpecialCardEffect(cardElement) {
+    cardElement.classList.add("special-card-animated");
+    setTimeout(() => {
+        cardElement.classList.remove("special-card-animated");
+    }, 1500);
+}
+
+
+
+
 
