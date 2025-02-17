@@ -29,10 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const isSpecial = specialRarities.includes(cardData.rarity);
 
             if (isSpecial) {
-                console.log(`🔥 La carte ${cardData.name} (${cardData.rarity}) est spéciale !`);
+                //console.log(`🔥 La carte ${cardData.name} (${cardData.rarity}) est spéciale !`);
                 return true;
             } else {
-                console.log(`✔️ La carte ${cardData.name} (${cardData.rarity}) est normale.`);
+                //console.log(`✔️ La carte ${cardData.name} (${cardData.rarity}) est normale.`);
                 return false;
             }
         } catch (error) {
